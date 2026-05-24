@@ -35,3 +35,4 @@ exit 1
 else
 echo " mySQL installation is successful "
 fi
+fi
