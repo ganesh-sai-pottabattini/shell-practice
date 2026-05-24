@@ -27,5 +27,11 @@ if [ $user_id -ne 0 ]; then
 echo " You are not root user "
 exit 1
 else 
-echo " I am continuing "
+echo " Installing mySQL "
+dnf install mysql -y
+if [ $? -ne 0 ]; then
+echo " mySQL installation has failed "
+exit 1
+else
+echo " mySQL installation is successful "
 fi
