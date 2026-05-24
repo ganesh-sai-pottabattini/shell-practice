@@ -32,20 +32,19 @@
 
 User_Id=$(id -u)
 if [ User_Id -ne 0 ]; then
-echo " need to be run as root user, use sudo "
-exit 1
+   echo " need to be run as root user, use sudo "
+   exit 1
 
-else
-dnf list installed mySQL -y
-
-if [ $? -eq 0 ]; then
-echo " already installed
-else
-dnf install mySQL -y
-if [ $? -eq 0 ]; then
-echo " mySQL installation is successful "
-else 
-echo " mySQL installation is failed "
-fi
-fi
+   else
+      dnf list installed mySQL -y
+      if [ $? -eq 0 ]; then
+         echo " already installed "
+         else
+            dnf install mySQL -y
+               if [ $? -eq 0 ]; then
+                  echo " mySQL installation is successful "
+                  else 
+                     echo " mySQL installation is failed "
+                fi
+       fi
 fi
