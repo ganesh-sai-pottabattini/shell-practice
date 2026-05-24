@@ -9,7 +9,6 @@ if [ $user_id -ne 0 ]; then
 
    echo " You are not root user "
    exit 1
-fi
 
 else
    dnf list installed mysql -y
@@ -24,4 +23,4 @@ else
          echo " mySQL installation is failed "
       fi
    fi
-
+fi
