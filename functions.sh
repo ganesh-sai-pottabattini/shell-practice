@@ -56,7 +56,7 @@ if [ User_Id -ne 0 ]; then
    exit 1
 	else
 
-	validate() mySQL
+	validate() mysql
 	validate () nginx
 
 
