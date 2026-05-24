@@ -50,27 +50,57 @@
 # fi
 
 
-User_Id=$(id -u)
-if [ $User_Id -ne 0 ]; then
-   echo " need to be run as root user, use sudo "
-   exit 1
-   else
+# User_Id=$(id -u)
+# if [ $User_Id -ne 0 ]; then
+#    echo " need to be run as root user, use sudo "
+#    exit 1
+#    else
 
-	validate mysql
-	validate nginx
+# 	validate mysql
+# 	validate nginx
 
 
-	validate() {
-		dnf list installed "$1" -y
-		if [ $? -eq 0 ]; then
-         		echo " $1 already installed "
-			else
-            		dnf install "$1" -y
-               			if [ $? -eq 0 ]; then
-                  			echo " $1 installation is successful "
-                  			else 
-                     			echo " $1 installation is failed "
-	                    fi
-		fi
-	           }
+# 	validate() {
+# 		dnf list installed "$1" -y
+# 		if [ $? -eq 0 ]; then
+#          		echo " $1 already installed "
+# 			else
+#             		dnf install "$1" -y
+#                			if [ $? -eq 0 ]; then
+#                   			echo " $1 installation is successful "
+#                   			else 
+#                      			echo " $1 installation is failed "
+# 	                    fi
+# 		fi
+# 	           }
+# fi
+
+#!/bin/bash
+
+USER_ID=$(id -u)
+
+validate() {
+
+    dnf list installed "$1" &>/dev/null
+
+    if [ $? -eq 0 ]; then
+        echo "$1 already installed"
+
+    else
+        dnf install "$1" -y
+
+        if [ $? -eq 0 ]; then
+            echo "$1 installation is successful"
+        else
+            echo "$1 installation failed"
+        fi
+    fi
+}
+
+if [ "$USER_ID" -ne 0 ]; then
+    echo "Need to run as root user, use sudo"
+    exit 1
+else
+    validate mysql
+    validate nginx
 fi
