@@ -12,12 +12,12 @@ if [ $user_id -ne 0 ]; then
 
 else
    dnf list installed mysql -y
-   if [$? -eq 0 ]; then
+   if [ $? -eq 0 ]; then
       echo " mysql is already installed "
       exit 1
       else 
       dnf install mysql -y
-      if [ $? -eq 0]; then
+      if [ $? -eq 0 ]; then
          echo " mySQL installation is successful "
          else
          echo " mySQL installation is failed "
