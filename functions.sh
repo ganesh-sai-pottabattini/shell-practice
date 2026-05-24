@@ -60,8 +60,7 @@ if [ User_Id -ne 0 ]; then
 	validate () nginx
 
 
-	validate()
-	{
+	validate(){
 		dnf list installed $1 -y
 		if [ $? -eq 0 ]; then
          		echo " $1 already installed "
@@ -73,5 +72,5 @@ if [ User_Id -ne 0 ]; then
                      			echo " $1 installation is failed "
 	                        fi
 		fi
-	}
+	           }
 fi
