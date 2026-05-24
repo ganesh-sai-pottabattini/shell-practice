@@ -51,7 +51,7 @@
 
 
 User_Id=$(id -u)
-if [ User_Id -ne 0 ]; then
+if [ $User_Id -ne 0 ]; then
    echo " need to be run as root user, use sudo "
    exit 1
    else
