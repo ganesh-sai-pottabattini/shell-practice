@@ -75,9 +75,7 @@
 # 	           }
 # fi
 
-#!/bin/bash
-
-USER_ID=$(id -u)
+User_Id=$(id -u)
 
 validate() {
 
@@ -97,7 +95,7 @@ validate() {
     fi
 }
 
-if [ "$USER_ID" -ne 0 ]; then
+if [ "$User_Id" -ne 0 ]; then
     echo "Need to run as root user, use sudo"
     exit 1
 else
