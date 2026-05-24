@@ -27,12 +27,17 @@ if [ $user_id -ne 0 ]; then
 echo " You are not root user "
 exit 1
 else 
+dnf list installed mysql -y
+if [ $? -eq 0 ]; then
+echo " mySQl is already installed "
+else
 echo " Installing mySQL "
-dnf install mysqlmyddg -y
+dnf install mysql -y
 if [ $? -ne 0 ]; then
 echo " mySQL installation has failed "
 exit 1
 else
 echo " mySQL installation is successful "
+fi
 fi
 fi
