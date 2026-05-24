@@ -28,7 +28,7 @@ echo " You are not root user "
 exit 1
 else 
 echo " Installing mySQL "
-dnf install mysql -y
+dnf install mysqlmyddg -y
 if [ $? -ne 0 ]; then
 echo " mySQL installation has failed "
 exit 1
