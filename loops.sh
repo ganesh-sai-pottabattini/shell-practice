@@ -41,7 +41,7 @@ if [ $USER_ID -ne 0 ]; then
 	else
 		for package in "$@"
 		do
-			VALIDATE 
+			VALIDATE "$package"
 		done
 fi
 
