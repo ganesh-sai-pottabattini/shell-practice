@@ -51,3 +51,6 @@ VALIDATE $? "Installing mongoDB"
 systemctl enable --now mongod
 VALIDATE $? "Starting and Enabling of mongoDB"
 
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/yum.repos.d/mongo.repo
+VALIDATE $? "Allowing all traffic"
+
