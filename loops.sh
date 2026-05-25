@@ -30,7 +30,7 @@ VALIDATE()
 		else
 		dnf install $package -y &>> $LOG_FILE
 		if [ $? -eq 0 ]; then
-			echo "$TIMESTAMP [Success] : $G $package is successfully installed " | tee -a $LOG_FILE
+			echo "$TIMESTAMP [Success] : "$G" $package is successfully installed " | tee -a $LOG_FILE
 			else
 				echo "TIMESTAMP [ ERROR ] : $R $package installation has failed " | tee -a $LOG_FILE
 		fi
