@@ -23,7 +23,6 @@ VALIDATE()
 	dnf list installed $package &>> $LOG_FILE
 	if [ $? -eq 0 ]; then
 		echo " $TIMESTAMP [Info] : Already $package is installed " | tee -a $LOG_FILE
-		exit
 		else
 		dnf install $package -y &>> $LOG_FILE
 		if [ $? -eq 0 ]; then
