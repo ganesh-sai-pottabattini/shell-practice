@@ -45,6 +45,9 @@ EOF
 
 VALIDATE $? "Repo File Content Addition "
 
+dnf install mongodb-org -y &>> LOG_FILE
+VALIDATE $? "Installing mongoDB"
+
 systemctl enable --now mongod
 VALIDATE $? "Starting and Enabling of mongoDB"
 
