@@ -12,7 +12,7 @@ LOG_DIR=/var/log/shell-script
 #LOG file location
 LOG_FILE=$LOG_DIR/$0.log
 TIMESTAMP=$(date "+%Y-%m-%d %H:%M:%S")
-R=" \e[31m"
+R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
@@ -30,7 +30,7 @@ VALIDATE()
 		else
 		dnf install $package -y &>> $LOG_FILE
 		if [ $? -eq 0 ]; then
-			echo "$TIMESTAMP [Success] : "$G" $package is successfully installed " | tee -a $LOG_FILE
+			echo -e "$TIMESTAMP [Success] : "$G" $package is successfully installed " | tee -a $LOG_FILE
 			else
 				echo "TIMESTAMP [ ERROR ] : $R $package installation has failed " | tee -a $LOG_FILE
 		fi
