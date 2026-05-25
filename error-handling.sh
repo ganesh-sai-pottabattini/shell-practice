@@ -32,6 +32,7 @@ VALIDATE()
     exit 1
     else
     echo -e "$TIMESTAMP [INFO] $2 is Successfull" | tee -a $LOG_FILE
+    fi
 }
 
 cat >>EOF | sudo tee /etc/yum.repos.d/mongo.repo
