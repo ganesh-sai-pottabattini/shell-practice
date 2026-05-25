@@ -12,6 +12,10 @@ LOG_DIR=/var/log/shell-script
 #LOG file location
 LOG_FILE=$LOG_DIR/$0.log
 TIMESTAMP=$(date "+%Y-%m-%d %H:%M:%S")
+R=" \e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
 
 
 
@@ -22,20 +26,20 @@ VALIDATE()
 {
 	dnf list installed $package &>> $LOG_FILE
 	if [ $? -eq 0 ]; then
-		echo " $TIMESTAMP [Info] : Already $package is installed " | tee -a $LOG_FILE
+		echo -e " $TIMESTAMP [Info] : $Y  Already $package is installed " | tee -a $LOG_FILE
 		else
 		dnf install $package -y &>> $LOG_FILE
 		if [ $? -eq 0 ]; then
-			echo "$TIMESTAMP [Success] : $package is successfully installed " | tee -a $LOG_FILE
+			echo "$TIMESTAMP [Success] : $G $package is successfully installed " | tee -a $LOG_FILE
 			else
-				echo "TIMESTAMP [ ERROR ] : $package installation has failed " | tee -a $LOG_FILE
+				echo "TIMESTAMP [ ERROR ] : $R $package installation has failed " | tee -a $LOG_FILE
 		fi
 	fi
 }
 
 #Confirm user id
 if [ $USER_ID -ne 0 ]; then
-	echo "Please run the script as root user" | tee -a $LOG_FILE
+	echo "$R Please run the script as root user" | tee -a $LOG_FILE
 	exit 1
 	else
 		for package in "$@"
