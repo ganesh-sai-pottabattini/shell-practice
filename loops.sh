@@ -1,9 +1,9 @@
 #! /bin/bash
 
-for i in {1..10}
-do
-	echo " $i "
-done
+# for i in {1..10}
+# do
+# 	echo " $i "
+# done
 
 #script.sh mysql nginx mongodb redis etc ....
 
