@@ -45,16 +45,16 @@ if [ $USER_ID -ne 0 ]; then
 		done
 fi
 
-sudo user ? 
-no - error, exit
+# sudo user ? 
+# no - error, exit
 
-yes - 
-take 1st arg from the input 
-list
-already exist ?
-yes - exit
-no-
-install 
-success ?
-yes - say successfully installed
-no - say failed 
+# yes - 
+# take 1st arg from the input 
+# list
+# already exist ?
+# yes - exit
+# no-
+# install 
+# success ?
+# yes - say successfully installed
+# no - say failed 
