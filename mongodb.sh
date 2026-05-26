@@ -9,6 +9,11 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
+USERID=$(id -u)
+if [ $USERID -ne 0 ]; then
+    echo -e " $TIMESTAMP [ ERROR ] $Y Please run the script as root user " | tee -a $LOG_FILE
+    exit 1
+fi
 
 cat <<EOF > /etc/yum.repos.d/mongo.repo &>> $LOG_FILE
 [mongodb-org-7.0]
