@@ -45,7 +45,7 @@ do
                 "Action": "UPSERT",
                 "ResourceRecordSet": 
                 {
-                    "Name": "'$DOMAIN_NAME'",
+                    "Name": "'$R53_RECORD",
                     "Type": "A",
                     "TTL": 1,
                     "ResourceRecords": 
