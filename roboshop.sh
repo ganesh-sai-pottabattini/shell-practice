@@ -28,12 +28,20 @@ do
         R53_RECORD="$DOMAIN_NAME"
 
         else
+        
         IP=$(aws ec2 describe-instances \
             --instance-ids $INSTANCE_ID \
             --query "Reservations[*].Instances[*].PrivateIpAddress" \
             --output text)
 
             echo "Private IP : $IP"
+
+            PRIVATE_IP=$(aws ec2 describe-instances \
+            --instance-ids $INSTANCE_ID \
+            --query "Reservations[*].Instances[*].PublicIpAddress" \
+            --output text)
+            echo "Public IP : $IP"
+
 
         R53_RECORD="$instance.$DOMAIN_NAME"
     fi
