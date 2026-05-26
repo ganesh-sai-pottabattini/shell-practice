@@ -27,7 +27,7 @@ VALIDATE()
     fi
 }
 
-dnf list installed mongodb-org
+dnf list installed mongodb-org | tee -a $LOG_FILE
 VALIDATE $? "Listing mongoDB "
 
 dnf install mongodb-org -y &>> $LOG_FILE
