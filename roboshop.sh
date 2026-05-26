@@ -23,6 +23,8 @@ do
         --query "Reservations[*].Instances[*].PublicIpAddress" \
         --output text)
 
+        echo "Public IP : $IP"
+
         R53_RECORD="$DOMAIN_NAME"
 
         else
@@ -30,6 +32,8 @@ do
             --instance-ids $INSTANCE_ID \
             --query "Reservations[*].Instances[*].PrivateIpAddress" \
             --output text)
+
+            echo "Private IP : $IP"
 
         R53_RECORD="$instance.$DOMAIN_NAME"
     fi
