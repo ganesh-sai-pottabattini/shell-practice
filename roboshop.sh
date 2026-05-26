@@ -17,7 +17,7 @@ do
     )
     echo " INSTANCE_ID=$INSTANCE_ID"
 
-    if [ $instance == "frontend"]; then
+    if [ $instance == "frontend" ]; then
         IP=$(aws ec2 describe-instances \
         --instance-ids $INSTANCE_ID \
         --query "Reservations[*].Instances[*].PublicIpAddress" \
@@ -38,7 +38,7 @@ do
     --hosted-zone-id $HOSTED_ZONE \
     --change-batch '
     {
-        "Comment": "Updating A record for $DOMAIN_NAME",
+        "Comment": "Updating A record for IP",
         "Changes": 
         [
             {
