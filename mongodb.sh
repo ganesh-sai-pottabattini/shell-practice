@@ -1,48 +1,43 @@
-#! /bin/bash
+#!/bin/bash
 
-LOG_DIR=/var/log/shell-script
-#LOG file location
-LOG_FILE=$LOG_DIR/$0.log
-TIMESTAMP=$(date "+%Y-%m-%d %H:%M:%S")
+LOGS_FOLDER="/var/log/roboshop"
+sudo mkdir -p $LOGS_FOLDER
+sudo chown -R ec2-user:ec2-user $LOGS_FOLDER
+sudo chmod -R 755 $LOGS_FOLDER
+LOGS_FILE="$LOGS_FOLDER/$0.log"
+
+USERID=$(id -u)
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
+TIMESTAMP=$(date "+%Y-%m-%d %H:%M:%S")
 
-USERID=$(id -u)
 if [ $USERID -ne 0 ]; then
-    echo -e " $TIMESTAMP [ ERROR ] $Y Please run the script as root user " | tee -a $LOG_FILE
+    echo -e "$TIMESTAMP [ERROR] $R Please run this script with root access $N" | tee -a $LOGS_FILE
     exit 1
 fi
 
-cat <<EOF > /etc/yum.repos.d/mongo.repo &>> $LOG_FILE
-[mongodb-org-7.0]
-name=MongoDB Repository
-baseurl=https://repo.mongodb.org/yum/redhat/9/mongodb-org/7.0/x86_64/
-enabled=1
-gpgcheck=0
-EOF
-
-VALIDATE()
-{
+VALIDATE(){
     if [ $1 -ne 0 ]; then
-        echo " $2 is Failed "
-        else
-        echo " $2 is Successful "
+        echo -e "$TIMESTAMP [ERROR] $2 ... $R FAILURE $N" | tee -a $LOGS_FILE
+        exit 1
+    else
+        echo -e "$TIMESTAMP [INFO] $2 ... $G SUCCESS $N" | tee -a $LOGS_FILE
     fi
 }
 
-dnf list installed mongodb-org | tee -a $LOG_FILE
-VALIDATE $? "Listing mongoDB "
+cp mongo.repo /etc/yum.repos.d/mongo.repo
+VALIDATE $? "Adding Mongo repo"
 
-dnf install mongodb-org -y &>> $LOG_FILE
-VALIDATE $1 " Installing mongodb "
+dnf install mongodb-org -y &>> $LOGS_FILE
+VALIDATE $? "Installing MongoDB"
 
 systemctl enable --now mongod
-VALIDATE $? "Starting and Enabling of mongoDB"
+VALIDATE $? "Starting and enabling MongoDB"
 
 sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf
-VALIDATE $? "Allowing all traffic"
+VALIDATE $? "Allowing remote connections to MongoDB"
 
 systemctl restart mongod
-VALIDATE $? "Restarting mongoDB"
+VALIDATE $? "Restarting MongoDB"
