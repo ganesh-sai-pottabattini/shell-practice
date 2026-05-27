@@ -20,7 +20,7 @@ if [ "$ACTION" != "create" ] && [ "$ACTION" != "delete" ]; then
     echo -e "$R ERROR:: First argument must be either create or delete $N"
     echo "USAGE: $0 [create/delete] [instance1] [instance2...]"
     exit 1
-    fi
+fi
 
 # get_instance_id(){
 #     name=$1
@@ -30,11 +30,11 @@ if [ "$ACTION" != "create" ] && [ "$ACTION" != "delete" ]; then
 instance=$1
 if [ "$ACTION" == "create" ]; then
 
-INSTANCE_ID=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=$instance" "Name=instance-state-name,Values=running" --query "Reservations[0].Instances[0].InstanceId" --output text)
+    INSTANCE_ID=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=$instance" "Name=instance-state-name,Values=running" --query "Reservations[0].Instances[0].InstanceId" --output text)
 
-if [ "INSTANCE_ID" == "None"]
-    echo "Launching Instance "
-    INSTANCE_ID=$( aws ec2 run-instances \
+    if [ "INSTANCE_ID" == "None"]
+        echo "Launching Instance "
+        INSTANCE_ID=$( aws ec2 run-instances \
             --image-id $AMI_ID \
             --instance-type t3.micro \
             --security-groups "common" "$instance" \
@@ -42,11 +42,12 @@ if [ "INSTANCE_ID" == "None"]
             --query 'Instances[0].InstanceId' \
             --output text 
             )
-    echo "Launched Instance, Instance-Id : $INSTANCE_ID"
+        echo "Launched Instance, Instance-Id : $INSTANCE_ID"
 
-else 
-echo "$instance already running: $INSTANCE_ID"
-
+        else 
+        echo "$instance already running: $INSTANCE_ID"
+    fi
+fi
 #update the ip in r53 records
 
     if [ $instance == "frontend" ]; then
